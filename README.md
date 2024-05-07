@@ -1,6 +1,32 @@
 # alipay
 支付宝 AliPay SDK for Go, 集成简单，功能完善中，持续更新！
 
+## 目录结构
+alipay/  
+├── internal/  
+│   ├── config/             # 配置管理  
+│   └── util/               # 工具函数  
+├── pkg/  
+│   ├── alipay/             # 支付宝支付功能实现  
+│   ├── client/             # HTTP 客户端封装  
+│   └── model/              # 模型定义  
+├── cmd/  
+│   └── example/            # 示例代码  
+├── docs/                   # SDK 文档  
+├── tests/                  # 单元测试和集成测试  
+├── LICENSE                 # 许可证文件  
+├── README.md               # SDK 使用文档  
+└── go.mod                  # Go modules 文件  
+
+* **internal** 目录包含了一些供 SDK 内部使用的功能，例如配置管理和工具函数。
+* **pkg** 目录包含了公共的支付宝支付功能实现、HTTP 客户端封装以及模型定义等。
+* **cmd** 目录包含了示例代码，用于演示 SDK 的使用方法。
+* **docs** 目录用于存放 SDK 的文档，可以包含使用指南、API 文档等。
+* **tests** 目录包含了单元测试和集成测试代码。
+* **LICENSE** 文件包含了 SDK 的许可证信息。
+* **README.md** 文件用于介绍 SDK，并提供使用指南和其他相关信息。
+* **go.mod** 文件是 Go modules 的配置文件，用于管理 SDK 的依赖项。
+
 ## 下载
 
 #### 启用 Go module【推荐】

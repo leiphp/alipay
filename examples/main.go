@@ -69,9 +69,9 @@ func pay(writer http.ResponseWriter, request *http.Request) {
 	var p = alipay.TradePagePay{}
 	p.NotifyURL = kServerDomain + "/alipay/notify"
 	p.ReturnURL = kServerDomain + "/alipay/callback"
-	p.Subject = "22支付测试:" + tradeNo
+	p.Subject = "支付测试:" + tradeNo
 	p.OutTradeNo = tradeNo
-	p.TotalAmount = "0.02"
+	p.TotalAmount = "0.01"
 	p.ProductCode = "FAST_INSTANT_TRADE_PAY"
 
 	url, _ := client.TradePagePay(p)
