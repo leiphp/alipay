@@ -2,8 +2,8 @@ package alipay_test
 
 import (
 	"fmt"
-	"github.com/leiphp/alipay"
-	"github.com/smartwalle/xid"
+	"github.com/leiphp/alipay/pkg/alipay"
+	"github.com/leiphp/alipay/pkg/xid"
 	"log"
 	"os"
 	"testing"

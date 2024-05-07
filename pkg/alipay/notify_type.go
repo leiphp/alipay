@@ -17,27 +17,27 @@ type Notification struct {
 	AppId               string      `json:"app_id"`                // 开发者的app_id
 	Charset             string      `json:"charset"`               // 编码格式
 	Version             string      `json:"version"`               // 接口版本
-	SignType            string      `json:"sign_type"`             // 签名类型
-	Sign                string      `json:"sign"`                  // 签名
-	TradeNo             string      `json:"trade_no"`              // 支付宝交易号
-	OutTradeNo          string      `json:"out_trade_no"`          // 商户订单号
-	OutRequestNo        string      `json:"out_request_no"`        // 退款请求编号
-	OutBizNo            string      `json:"out_biz_no"`            // 商户业务号
-	BuyerId             string      `json:"buyer_id"`              // 买家支付宝用户号
-	BuyerLogonId        string      `json:"buyer_logon_id"`        // 买家支付宝账号
-	SellerId            string      `json:"seller_id"`             // 卖家支付宝用户号
-	SellerEmail         string      `json:"seller_email"`          // 卖家支付宝账号
-	TradeStatus         TradeStatus `json:"trade_status"`          // 交易状态
-	RefundStatus        string      `json:"refund_status"`         // 退款状态
-	RefundReason        string      `json:"refund_reason"`         // 退款原因
-	RefundAmount        string      `json:"refund_amount"`         // 退款金额
-	TotalAmount         string      `json:"total_amount"`          // 订单金额
-	ReceiptAmount       string      `json:"receipt_amount"`        // 实收金额
-	InvoiceAmount       string      `json:"invoice_amount"`        // 开票金额
-	BuyerPayAmount      string      `json:"buyer_pay_amount"`      // 付款金额
-	PointAmount         string      `json:"point_amount"`          // 集分宝金额
-	RefundFee           string      `json:"refund_fee"`            // 总退款金额
-	Subject             string      `json:"subject"`               // 商品的标题/交易标题/订单标题/订单关键字等，是请求时对应的参数，原样通知回来。
+	SignType       string      `json:"sign_type"`                  // 签名类型
+	Sign           string      `json:"sign"`                       // 签名
+	TradeNo        string      `json:"trade_no"`                   // 支付宝交易号
+	OutTradeNo     string      `json:"out_trade_no"`               // 商户订单号
+	OutRequestNo   string      `json:"out_request_no"`             // 退款请求编号
+	OutBizNo       string      `json:"out_biz_no"`                 // 商户业务号
+	BuyerId        string      `json:"buyer_id"`                   // 买家支付宝用户号
+	BuyerLogonId   string      `json:"buyer_logon_id"`             // 买家支付宝账号
+	SellerId       string      `json:"seller_id"`                  // 卖家支付宝用户号
+	SellerEmail    string      `json:"seller_email"`               // 卖家支付宝账号
+	TradeStatus    TradeStatus `json:"trade_status"`               // 交易状态
+	RefundStatus   string      `json:"refund_status"`              // 退款状态
+	RefundReason   string      `json:"refund_reason"`              // 退款原因
+	RefundAmount   string      `json:"refund_amount"`              // 退款金额
+	TotalAmount    string      `json:"total_amount"`               // 订单金额
+	ReceiptAmount  string      `json:"receipt_amount"`             // 实收金额
+	InvoiceAmount  string      `json:"invoice_amount"`             // 开票金额
+	BuyerPayAmount string      `json:"buyer_pay_amount"`           // 付款金额
+	PointAmount    string      `json:"point_amount"`               // 集分宝金额
+	RefundFee      string      `json:"refund_fee"`                 // 总退款金额
+	Subject        string      `json:"subject"`                    // 商品的标题/交易标题/订单标题/订单关键字等，是请求时对应的参数，原样通知回来。
 	Body                string      `json:"body"`                  // 商品描述
 	GmtCreate           string      `json:"gmt_create"`            // 交易创建时间
 	GmtPayment          string      `json:"gmt_payment"`           // 交易付款时间
