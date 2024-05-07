@@ -21,17 +21,48 @@ import (
 
 ## 帮助
 需要 go1.20 或者 1.18 以上  
-在集成的过程中有遇到问题，欢迎加 QQ  1124378213 讨论。
+在集成的过程中有遇到问题，欢迎加 QQ  1124378213 讨论  
+支持公钥证书加签方式和普通密钥加签方式，该项目以**采用证书加密**为例  
 
+## [加签方式说明](https://opendocs.alipay.com/common/02kf5p?pathHash=81acb065)
+主要分为以下两种加签方式：
 
-## 关于分支
+| 接口加签方式 | 密钥 | 证书 |
+| --------- | --------- | --------- |
+| 特性 | 安全性、真实性 | 安全性、真实性、抗抵赖 |
+| 相应文件 | 应用私钥、应用公钥、支付宝公钥 | 应用私钥、应用公钥、应用公钥证书、支付宝公钥证书、支付宝根证书 |
+| 适用场景 | 除资金支出类场景外，都可以使用密钥加签方式 | 红包（原 “现金红包”）、转账到支付宝账户 必须使用证书加签方式，其他场景可以选择使用密钥或证书 |
 
-* 支持**公钥证书**和**普通公钥**进行签名验证，详情可以参考 [https://docs.open.alipay.com/291/105974/](https://docs.open.alipay.com/291/105974/) 和 [https://docs.open.alipay.com/291/105971/](https://docs.open.alipay.com/291/105971/)，为目前主要维护分支；
+注意：需先完成配置后才可对接口进行加签。
 
+## [设置证书加签方式](https://opendocs.alipay.com/common/056zub?pathHash=91c49771) 
+1. 设置加签方式，选择 证书 > 下一步。  
+2. 生成 CSR 文件。  
+    a. 下载并安装 [支付宝开放平台密钥工具](https://opendocs.alipay.com/common/02kipk)。  
+    b. 打开密钥工具，进入 [生成密钥](https://opendocs.alipay.com/common/02kipl) 功能。  
+    c. 加签方式选择 证书，加签算法选择 RSA2。（开放平台支持 SM2 算法，但暂未公开配置，如有需要请联系支付宝技术支持）  
+    d. 填写 组织/公司，必须与开放平台主账号名称完全相同。  
+    e. 点击 生成CSR文件，可以点击 打开文件位置 查看生成的应用私钥、应用公钥和 CSR文件。  
+    f. 返回开放平台控制台中，点击 下一步。
+3. 上传生成的 CSR 文件，选择 证书到期后的处理方式（默认为自动签发），设置 安全联系人 信息，签署 开放平台服务协议。点击 确认上传。此时需要输入短信验证码或支付密码，完成安全验证。  
+4. 证书配置完成。  
 
+## 下载证书
+配置完成接口加签方式就可以在最后一步下载证书，点击全部下载到本地
+* **应用公钥证书**
+```go
+appCertPublicKey_2017020905582002.crt
+```
+* **支付宝公钥证书**
+ ```go
+ alipayCertPublicKey_RSA2.crt
+ ```
+* **支付宝根证书**
+ ```go
+ alipayRootCert.crt
+ ```
 
-
-## 版本如何初始化
+## 项目初始化
 
 **下面用到的 privateKey 需要特别注意一下，如果是通过“支付宝开发平台开发助手”创建的CSR文件，在 CSR 文件所在的目录下会生成相应的私钥文件，我们需要使用该私钥进行签名。**
 
@@ -47,17 +78,17 @@ var client, err = alipay.New(appID, privateKey, isProduction)
 
 支付宝提供了用于开发时测试的 sandbox 环境，对接的时候需要注意相关的 app id 和密钥是 sandbox 环境还是 production 环境的。如果是 sandbox 环境，本参数应该传 false，否则为 true。
 
-### 公钥证书模式
+### 公钥证书加签方式
 
-如果采用公钥证书方式进行验证签名，需要调用以下几个方法加载证书信息，所有证书都是从支付宝创建的应用处下载，参考 [https://docs.open.alipay.com/291/105971/](https://docs.open.alipay.com/291/105971/) 和 [https://docs.open.alipay.com/291/105972/](https://docs.open.alipay.com/291/105972/)
+如果采用公钥证书方式进行验证签名，需要调用以下几个方法加载证书信息，所有证书都是从支付宝创建的应用处下载
 
 ```go
-client.LoadAppCertPublicKeyFromFile("/路径/appCertPublicKey_2017011104995404.crt") // 加载应用公钥证书
+client.LoadAppCertPublicKeyFromFile("/路径/appCertPublicKey_2017020905582002.crt") // 加载应用公钥证书
 client.LoadAliPayRootCertFromFile("/路径/alipayRootCert.crt")                // 加载支付宝根证书
 client.LoadAlipayCertPublicKeyFromFile("/路径/alipayCertPublicKey_RSA2.crt") // 加载支付宝公钥证书
 ```
 
-### 普通公钥模式
+### 普通密钥加签方式
 
 需要注意此处用到的公钥是**支付宝公钥**，不是我们用工具生成的应用公钥。
 
@@ -67,11 +98,11 @@ client.LoadAlipayCertPublicKeyFromFile("/路径/alipayCertPublicKey_RSA2.crt") /
 client.LoadAliPayPublicKey("aliPublicKey")
 ```
 
-特别注意：**公钥证书**和**普通公钥**不能同时存在，只能选择其中一种。
+特别注意：**证书加签方式**和**普通密钥加签方式**不能同时存在，只能选择其中一种。
 
 ### 接口内容加密
 
-详细内容访问 [https://opendocs.alipay.com/common/02mse3](https://opendocs.alipay.com/common/02mse3) 进行了解。
+详细内容访问 [接口内容加密方式](https://opendocs.alipay.com/common/02mse3) 进行了解。
 
 如果需要开启该功能，只需调用一下 SetEncryptKey() 方法。
 
