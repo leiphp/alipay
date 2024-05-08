@@ -3,7 +3,7 @@ package alipay
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/smartwalle/ngx"
+	"github.com/leiphp/alipay/pkg/ngx"
 	"io"
 )
 

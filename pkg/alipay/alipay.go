@@ -10,8 +10,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"github.com/smartwalle/ngx"
-	"github.com/smartwalle/nsign"
+	"github.com/leiphp/alipay/pkg/ngx"
+	"github.com/leiphp/alipay/pkg/nsign"
 	"io"
 	"net/http"
 	"net/url"
@@ -20,7 +20,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/smartwalle/ncrypto"
+	"github.com/leiphp/ncrypto"
 )
 
 var (
