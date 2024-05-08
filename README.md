@@ -32,7 +32,7 @@ alipay/
 #### 启用 Go module【推荐】
 在您的项目中的go.mod文件内添加这行代码  
 ```go
-require require github.com/leiphp/alipay v1.0.0
+require require github.com/leiphp/alipay v1.0.3
 ```
 
 并且在项目中使用 "github.com/leiphp/alipay" 引用 AliPay Go SDK。
@@ -40,13 +40,12 @@ require require github.com/leiphp/alipay v1.0.0
 例如
 ```go
 import (
-    "github.com/leiphp/alipay/auth"
-    "github.com/leiphp/alipay/storage"
+    "github.com/leiphp/alipay/pkg/alipay"
+    "github.com/leiphp/alipay/pkg/xid"
 )
 ```
 
 ## 帮助
-需要 go1.20 或者 1.18 以上  
 在集成的过程中有遇到问题，欢迎加 QQ  1124378213 讨论  
 支持公钥证书加签方式和普通密钥加签方式，该项目以**采用证书加密**为例  
 
@@ -469,25 +468,9 @@ var s, err = client.EncodeParam(p)
 
 [更多信息](https://github.com/leiphp/alipay/)
 
-## 文件上传
-
-使用 **自定义请求** 实现 [alipay.open.file.upload(支付宝文件上传接口)](https://opendocs.alipay.com/mini/05snwo) 功能，需要注意本接口是小程序应用的功能，需要在小程序应用中开启 **搜素直达** 才能正常使用。
-
-```go
-var p = alipay.NewPayload("alipay.open.file.upload")
-p.Encrypt = false // 文件上传不支持接口内容加密
-
-// 设置参数
-p.AddParam("biz_code", "content_creation")
-
-// 添加文件
-p.AddFilePath("file_content", "a.jpg", "path/a.jpg")
-// 或者
-p.AddFileObject("file_content", "a.jpg", io.Reader)
-
-var result map[string]interface{}
-var err = client.Request(p, &result)
-```
+## 致谢
+项目起初参考了很多开源项目的解决方案，开源不易，感谢分享
+- 感谢**smartwalle**分享：[alipay](https://github.com/smartwalle/alipay)
 
 ## 示例
 
